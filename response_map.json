@@ -1,0 +1,53 @@
+{
+  "joke": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "",
+        "buttons":[
+                  {
+                    "type":"postback",
+                    "title":"New Joke Please",
+                    "payload": "joke"
+                  }
+                ]
+      }
+    }
+  },
+  "help":{
+     "text": "New Joke Please or 'joke' - gives you new joke , Reset - is resetting your stats , Help - show this message"
+  },
+  "reset":{
+    "text": "resetting your stats... done"
+  },
+  "reached_ten_joke": {
+    "text": "You reached the 10 joke limit now you need to wait 24h"
+  },
+  "basic":{
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Info:",
+        "buttons":[
+                  {
+                    "type":"postback",
+                    "title":"A joke please",
+                    "payload": "joke"
+                  },
+                  {
+                    "type":"postback",
+                    "title":"Reset",
+                    "payload": "reset"
+                  },
+                  {
+                    "type":"postback",
+                    "title":"Help",
+                    "payload": "help"
+                  }
+                ]
+      }
+    }
+  }
+}
