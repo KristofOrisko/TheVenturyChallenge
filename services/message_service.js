@@ -7,15 +7,27 @@ const response_map = require('./../response_map');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
-
+/** MessageService class for handling messages and responses
+* @class MessageService
+*/
 class MessageService {
   constructor() {
-    // incase Random message sent to our page the response is Info with options:
-    // A joke please - button
-    // Reset - button
-    // Help - button
+    /**
+    * Loading basic response. It is send when message does not contain any right command.</br>
+    * With options: </br>
+    * - <b>Help</b> - Show help text</br>
+    * - <b>Reset</b> - Reset user stats in database</br>
+    * - <b>A joke please </b> - Sending joke to user</br>
+    */
     this.response = response_map.basic;
   }
+
+  /**
+  * - Handles text message from user </br>
+  * - calls <b>callSendAPIWithJoke()</b> or <b>callSendAPI()</b>
+  * @param {string} sender_psid = The id of the facebook user
+  * @param {Object} received_message = The text message from facebook messenger
+  */
 
   async handleMessage(sender_psid, received_message) {
 
@@ -42,6 +54,18 @@ class MessageService {
 
   }
 
+  /**
+  * Handles text message from user </br>
+  * Postback options: </br>
+  * - <b>Help</b> - Show help text</br>
+  * - <b>Reset</b> - Reset user stats in database</br>
+  * - <b>A joke please </b> - Sending joke to user</br>
+  *
+  * Sets the right response and </br>
+  * calls <b>callSendAPIWithJoke()</b> or <b>callSendAPI()</b>
+  * @param {string} sender_psid = The id of the facebook user
+  * @param {Object} received_postback = The message with payload of the postback from facebook messenger
+  */
    async handlePostback(sender_psid, received_postback){
 
      try{
@@ -80,6 +104,11 @@ class MessageService {
 
   }
 
+  /**
+  * - Sending POST request with response to FB messaging API
+  * @param {string} sender_psid = The id of the facebook user
+  */
+
   async callSendAPI(sender_psid){
 
     try {
@@ -107,6 +136,12 @@ class MessageService {
 
   }
 
+  /**
+  * - Sending POST request with response and a joke to FB messaging API </br>
+  * - Checks if the user could get a joke or not </br>
+  * - Updates user profile and sets the right response
+  * @param {string} sender_psid = The id of the facebook user
+  */
   async callSendAPIWithJoke(sender_psid) {
 
     try {
@@ -143,6 +178,11 @@ class MessageService {
 
   }
 
+
+  /**
+  * - Get a random joke from an API
+  * @return {string} joke = The random joke
+  */
   async getRandomJoke(){
 
     try {

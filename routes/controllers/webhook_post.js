@@ -1,8 +1,17 @@
 const MessageService = require('./../../services/message_service');
-//const helper = require('./../../helpers');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const request = require('request-promise');
+
+/**
+* Handling POST request </br>
+* - Checks if user is already in our database </br>
+* - If not insert user to database </br>
+* - Handling message: </br>
+*   - IF message calls MessageService handleMessage
+*   - IF postback callse MessageService handlePostback
+* @module webhook_post
+*/
 
 module.exports = async (req, res) => {
 
@@ -16,12 +25,11 @@ module.exports = async (req, res) => {
 
       // Gets the body of the webhook event
       let webhook_event = await entry.messaging[0];
-      //console.log(webhook_event);
 
       // Get the sender PSID
       let sender_psid = await webhook_event.sender.id;
-      //console.log('Sender PSID: ' + sender_psid);
 
+      // finding User by sender PSID
       const user = await User.findOne({sender_psid:sender_psid},{_id:1});
 
       if(!user) {
@@ -33,12 +41,13 @@ module.exports = async (req, res) => {
 
         });
 
+        // saving the user to the database
         const userSave = await registerUser.save();
 
       }
 
-      // Check if the event is a message or postback and
-      // pass the event to the appropriate handler function
+      // Checks if the event is a message or postback and
+      // pass the event to the right handler function
       if (webhook_event.message) {
 
         let messageService = new MessageService();

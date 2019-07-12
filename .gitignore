@@ -1,5 +1,5 @@
 node_modules/
+TheVenturyChallenge/
 helpers.js
 people_class.js
 response_map_messages.json
-.env
