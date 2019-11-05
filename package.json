@@ -17,7 +17,7 @@
     "express": "^4.17.1",
     "express-sanitizer": "^1.0.5",
     "helmet": "^3.18.0",
-    "mongoose": "^5.6.3",
+    "mongoose": "^5.7.5",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "sinon": "^7.3.2"
